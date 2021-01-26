@@ -1,0 +1,36 @@
+chars = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+
+def caesar_cipher_encrypt(txt,shift_by,chars):
+#This function can be optimized further, this is a sample to understand the concept
+    cipher = ""
+    txt = txt.lower()
+    for i in txt:
+        if i != ' ':
+            chars.index(i)
+            shifted = (chars.index(i) + shift_by) % 26
+            cipher += chars[shifted]
+        else:
+            cipher +=' '
+
+    return cipher
+
+def caesar_cipher_decrypt(txt,shift_by,chars):
+#This function can be optimized further, this is a sample to understand the concept
+    cipher = ""
+    txt = txt.lower()
+    for i in txt:
+        if i != ' ':
+            chars.index(i)
+            shifted = (chars.index(i) + shift_by-(shift_by*2)) % 26
+            cipher += chars[shifted]
+        else:
+            cipher +=' '
+
+    return cipher
+    
+    
+cipher_txt = caesar_cipher_encrypt("Move to high ground",2,chars)
+print(cipher_txt)
+
+decrypted = caesar_cipher_decrypt("oqxg vq jkij itqwpf",2,chars)
+print(decrypted)
