@@ -1,0 +1,57 @@
+"""
+These functions are not optimized, just to represent the method of encryption and decryption
+"""
+
+chars = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+
+def vigenere_cipher_encrypt(txt,keyword,chars):
+    txt = txt.lower()
+    shift_by_keyword = []
+    keyword_length = len(keyword)
+    cipher = ""
+    for i in keyword:
+        shift_by_keyword.append(chars.index(i)+1)
+
+    count = 0
+    for i in txt:
+        if i in chars:
+            shift_by = shift_by_keyword[count%keyword_length]
+            final_shift = (chars.index(i) + shift_by) % 26
+            cipher += chars[final_shift]
+            count += 1
+        else:
+            cipher += " "
+
+    return cipher.upper()
+
+
+def vigenere_cipher_decrypt(txt,keyword,chars):
+    txt = txt.lower()
+    shift_by_keyword = []
+    keyword_length = len(keyword)
+    decrypt = ""
+    for i in keyword:
+        shift_by_keyword.append(chars.index(i) + 1)
+
+    count = 0
+    for i in txt:
+        if i in chars:
+            shift_by = shift_by_keyword[count % keyword_length]
+            final_shift = (chars.index(i) + shift_by - (shift_by * 2)) % 26
+            decrypt += chars[final_shift]
+            count += 1
+        else:
+            decrypt += " "
+
+    return decrypt.upper()
+
+keyword = "cat"
+txt = "meet me at three"
+
+cipher = vigenere_cipher_encrypt(txt,keyword,chars)
+print("ORIGINAL:",txt.upper())
+print("CIPHER:",cipher)
+
+decrypted = vigenere_cipher_decrypt(cipher,keyword,chars)
+print("DECRYPTED:",decrypted)
+
