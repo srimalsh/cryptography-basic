@@ -1,0 +1,74 @@
+def railway_fence_encrypt(txt, rows):
+    #txt = txt.replace(' ', '')
+    new_list = [['' for i in range(0)] for j in range(rows)]
+    move_down = True
+    curr_row = 0
+    final_str = ""
+
+    for i in range(len(txt)):
+        new_list[curr_row].append(txt[i])
+        # print(i,txt[i],curr_row)
+        if move_down:
+            curr_row = curr_row + 1
+        else:
+            curr_row = curr_row - 1
+        if curr_row == rows - 1:
+            move_down = False
+        if curr_row == 0:
+            move_down = True
+    # return new_list
+
+    for i in range(rows):
+        for j in range(len(new_list[i])):
+            final_str += new_list[i][j]
+
+    return final_str.upper()
+
+
+def railway_fence_decrypt(txt, rows):
+    new_list_nums = [['' for i in range(0)] for j in range(rows)]
+    move_down = True
+    curr_row = 0
+    final_str = ""
+
+    for i in range(len(txt)):
+        new_list_nums[curr_row].append(i)
+
+        if move_down:
+            curr_row = curr_row + 1
+        else:
+            curr_row = curr_row - 1
+        if curr_row == rows - 1:
+            move_down = False
+        if curr_row == 0:
+            move_down = True
+
+    decrypt_structure = []
+
+    for i in range(rows):
+        for j in range(len(new_list_nums[i])):
+            decrypt_structure.append(new_list_nums[i][j])
+
+    for i in range(len(txt)):
+        final_str += txt[decrypt_structure.index(i)]
+
+    return final_str
+
+"""
+encrypted = railway_fence_encrypt(txt, rows)
+print("ORIGINAL:", txt.upper())
+print("CIPHER:", encrypted)
+decrypted = railway_fence_decrypt(encrypted, rows)
+print("DECRYPTED:", decrypted)
+"""
+
+enc1 = railway_fence_encrypt("attack at once", 2)
+enc2 = railway_fence_encrypt("GeeksforGeeks ", 3)
+enc3 = railway_fence_encrypt("defend the east wall", 3)
+print('ENCRYPTED:',enc1)
+print('ENCRYPTED:',enc2)
+print('ENCRYPTED:',enc3)
+
+print('DECRYPTED:',railway_fence_decrypt("ATC TOCTAKA NE",2))
+print('DECRYPTED:',railway_fence_decrypt("GSGSEKFREK EOE",3))
+print('DECRYPTED:',railway_fence_decrypt("DNHAWEEDTEES ALF  TL",3))
